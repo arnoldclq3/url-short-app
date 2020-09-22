@@ -2,22 +2,27 @@ package services
 
 import "math"
 
-type ShortenerService struct {
+type ShortenerBase26 struct {
 	alphabet string
 	base     int
 	dicc     map[rune]int
 }
 
-func (s ShortenerService) GenerateShortString(seed int) string {
+func NewShortenerBase26() *ShortenerBase26 {
+	s := new(ShortenerBase26)
 	s.dicc = make(map[rune]int)
 	s.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	s.base = len(s.alphabet)
+	return s
+}
+
+func (s ShortenerBase26) GenerateShortString(seed int) string {
 	for pos, char := range s.alphabet {
 		s.dicc[char] = pos
 	}
 
-	if seed < s.base {
-		return string(s.alphabet[0])
+	if seed == 0 {
+		return string(s.alphabet[0:1])
 	}
 
 	str := ""
@@ -32,10 +37,7 @@ func (s ShortenerService) GenerateShortString(seed int) string {
 	//return "EV"
 }
 
-func (s ShortenerService) RestoreSeedFromString(seed string) int {
-	s.dicc = make(map[rune]int)
-	s.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	s.base = len(s.alphabet)
+func (s ShortenerBase26) RestoreSeedFromString(seed string) int {
 	for pos, char := range s.alphabet {
 		s.dicc[char] = pos
 	}
