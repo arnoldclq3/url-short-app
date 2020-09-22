@@ -11,12 +11,10 @@ type MockDataBase struct {
 }
 
 func NewMockDataBase() *MockDataBase {
-	db := new(MockDataBase)
-	db.urls = make([]entities.Url, 0)
-	return db
+	return &MockDataBase{urls: make([]entities.Url, 0)}
 }
 
-func (db MockDataBase) FindById(id int) (entities.Url, error) {
+func (db *MockDataBase) FindById(id int) (entities.Url, error) {
 	var result entities.Url
 	for i := range db.urls {
 		if db.urls[i].Id == id {
@@ -26,7 +24,7 @@ func (db MockDataBase) FindById(id int) (entities.Url, error) {
 	return result, errors.New("Element not exist")
 }
 
-func (db MockDataBase) Find(anyUrl entities.Url) (entities.Url, error) {
+func (db *MockDataBase) Find(anyUrl entities.Url) (entities.Url, error) {
 	var result entities.Url
 	for i := range db.urls {
 		if db.urls[i].Text == anyUrl.Text {
@@ -56,6 +54,6 @@ func (db *MockDataBase) Delete(id int) error {
 	return nil
 }
 
-func (db MockDataBase) GetAll() ([]entities.Url, error) {
+func (db *MockDataBase) GetAll() ([]entities.Url, error) {
 	return db.urls, nil
 }

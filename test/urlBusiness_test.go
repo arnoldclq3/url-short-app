@@ -10,25 +10,29 @@ import (
 
 func TestGenerateShortURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
-	myBusiness := business.NewUrlBusiness(*myShortener)
+	mydb := services.NewMockDataBase()
+	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
 	result := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
 
-	assert.Equal(t, "B", result, "fallo test GenerateShortURL")
+	assert.Equal(t, "A", result, "fallo test GenerateShortURL")
 }
 
 func TestRestoreOriginalURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
-	myBusiness := business.NewUrlBusiness(*myShortener)
+	mydb := services.NewMockDataBase()
+	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
-	result := myBusiness.RestoreOriginalURL("B")
+	urlGen := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
+	result := myBusiness.RestoreOriginalURL(urlGen)
 
 	assert.Equal(t, "wwwwwwwwwwwwwwwwwwwwwwwwww", result, "fallo test GenerateShortURL")
 }
 
 func TestRestoreInexistentURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
-	myBusiness := business.NewUrlBusiness(*myShortener)
+	mydb := services.NewMockDataBase()
+	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
 	result := myBusiness.RestoreOriginalURL("AXVCVX")
 
