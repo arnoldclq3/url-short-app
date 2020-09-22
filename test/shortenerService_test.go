@@ -8,7 +8,8 @@ import (
 )
 
 func TestGenerateShortString(t *testing.T) {
-	myService := new(services.ShortenerService)
+	// myService := new(services.ShortenerService)
+	myService := services.NewShortenerService()
 
 	result := myService.GenerateShortString(125)
 
@@ -16,7 +17,8 @@ func TestGenerateShortString(t *testing.T) {
 }
 
 func TestRestoreSeedFromString(t *testing.T) {
-	myService := new(services.ShortenerService)
+	// myService := new(services.ShortenerService)
+	myService := services.NewShortenerService()
 
 	result := myService.RestoreSeedFromString("EV")
 

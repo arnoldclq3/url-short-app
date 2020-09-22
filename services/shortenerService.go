@@ -8,10 +8,15 @@ type ShortenerService struct {
 	dicc     map[rune]int
 }
 
-func (s ShortenerService) GenerateShortString(seed int) string {
+func NewShortenerService() *ShortenerService {
+	s := new(ShortenerService)
 	s.dicc = make(map[rune]int)
 	s.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	s.base = len(s.alphabet)
+	return s
+}
+
+func (s ShortenerService) GenerateShortString(seed int) string {
 	for pos, char := range s.alphabet {
 		s.dicc[char] = pos
 	}
@@ -33,9 +38,6 @@ func (s ShortenerService) GenerateShortString(seed int) string {
 }
 
 func (s ShortenerService) RestoreSeedFromString(seed string) int {
-	s.dicc = make(map[rune]int)
-	s.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	s.base = len(s.alphabet)
 	for pos, char := range s.alphabet {
 		s.dicc[char] = pos
 	}
