@@ -21,8 +21,8 @@ func (s ShortenerService) GenerateShortString(seed int) string {
 		s.dicc[char] = pos
 	}
 
-	if seed < s.base {
-		return string(s.alphabet[0])
+	if seed == 0 {
+		return string(s.alphabet[0:1])
 	}
 
 	str := ""
