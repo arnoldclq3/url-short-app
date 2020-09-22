@@ -5,10 +5,10 @@ import (
 )
 
 type UrlBusiness struct {
-	shortener services.ShortenerService
+	shortener services.IShortenerService
 }
 
-func NewUrlBusiness(shortener services.ShortenerService) *UrlBusiness {
+func NewUrlBusiness(shortener services.IShortenerService) *UrlBusiness {
 	u := new(UrlBusiness)
 	u.shortener = shortener
 	return u

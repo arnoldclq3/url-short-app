@@ -9,7 +9,7 @@ import (
 )
 
 func TestGenerateShortURL(t *testing.T) {
-	myShortener := services.NewShortenerService()
+	myShortener := services.NewShortenerBase26()
 	myBusiness := business.NewUrlBusiness(*myShortener)
 
 	result := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
@@ -18,7 +18,7 @@ func TestGenerateShortURL(t *testing.T) {
 }
 
 func TestRestoreOriginalURL(t *testing.T) {
-	myShortener := services.NewShortenerService()
+	myShortener := services.NewShortenerBase26()
 	myBusiness := business.NewUrlBusiness(*myShortener)
 
 	result := myBusiness.RestoreOriginalURL("B")
@@ -27,7 +27,7 @@ func TestRestoreOriginalURL(t *testing.T) {
 }
 
 func TestRestoreInexistentURL(t *testing.T) {
-	myShortener := services.NewShortenerService()
+	myShortener := services.NewShortenerBase26()
 	myBusiness := business.NewUrlBusiness(*myShortener)
 
 	result := myBusiness.RestoreOriginalURL("AXVCVX")
