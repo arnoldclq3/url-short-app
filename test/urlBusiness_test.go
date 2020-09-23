@@ -10,27 +10,30 @@ import (
 
 func TestGenerateShortURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
+	// mydb := services.NewMongoService()
 	mydb := services.NewMockDataBase()
 	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
-	result := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
+	result := myBusiness.GenerateShortURL("www.mi-primera-url-larga.com")
 
 	assert.Equal(t, "B", result, "fallo test GenerateShortURL")
 }
 
 func TestRestoreOriginalURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
+	// mydb := services.NewMongoService()
 	mydb := services.NewMockDataBase()
 	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
-	urlGen := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
+	urlGen := myBusiness.GenerateShortURL("www.mi-segunda-url-larga.com")
 	result := myBusiness.RestoreOriginalURL(urlGen)
 
-	assert.Equal(t, "wwwwwwwwwwwwwwwwwwwwwwwwww", result, "fallo test GenerateShortURL")
+	assert.Equal(t, "www.mi-segunda-url-larga.com", result, "fallo test GenerateShortURL")
 }
 
 func TestRestoreInexistentURL(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
+	// mydb := services.NewMongoService()
 	mydb := services.NewMockDataBase()
 	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
@@ -41,6 +44,7 @@ func TestRestoreInexistentURL(t *testing.T) {
 
 func TestDeleteByUrl(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
+	// mydb := services.NewMongoService()
 	mydb := services.NewMockDataBase()
 	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
@@ -53,10 +57,11 @@ func TestDeleteByUrl(t *testing.T) {
 
 func TestDeleteByShortUrl(t *testing.T) {
 	myShortener := services.NewShortenerBase26()
+	// mydb := services.NewMongoService()
 	mydb := services.NewMockDataBase()
 	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
 
-	urlGen := myBusiness.GenerateShortURL("www.una-url-muy-larga.com")
+	urlGen := myBusiness.GenerateShortURL("www.otra-url-muy-larga.com")
 	err := myBusiness.DeleteByShortUrl(urlGen)
 
 	assert.Nil(t, err, "fallo test DeleteByShortUrl")
