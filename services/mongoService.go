@@ -20,7 +20,6 @@ type MongoService struct {
 
 func NewMongoService() *MongoService {
 	m := new(MongoService)
-	// m.stringConn = "mongodb+srv://owner:mongoagosto2020@cluster0.ux6pq.mongodb.net/<dbname>?retryWrites=true&w=majority"
 	m.stringConn = os.Getenv("DBCONN")
 	m.nameDb = "urls"
 	m.nameColl = "urls"
