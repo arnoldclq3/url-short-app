@@ -18,7 +18,7 @@ type UrlDel struct {
 func Home(w http.ResponseWriter, r *http.Request) {
 	nombre := "Arnold"
 
-	// welcome := "Hola mundo! yo soy " + nombre + " Y esta es mi 1ra app en GO"
+  // welcome := "Hola mundo! yo soy " + nombre + " Y esta es mi 1ra app en GO"
 
 	welcome := struct {
 		MiNombre   string
