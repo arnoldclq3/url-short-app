@@ -2,10 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/_url-Short-App/business"
+	"github.com/_url-Short-App/services"
 	"github.com/gorilla/mux"
 )
 
@@ -13,6 +17,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", Home).Methods("GET")
+	r.HandleFunc("/GenerateShortUrl", GenerateShortUrl).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -28,6 +33,26 @@ func main() {
 func Home(w http.ResponseWriter, r *http.Request) {
 	welcome := "Hola mundo! yo soy Arnold"
 	respondWithJSON(w, http.StatusOK, welcome)
+}
+
+func GenerateShortUrl(w http.ResponseWriter, r *http.Request) {
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "URL no valida")
+	}
+
+	var url string
+	json.Unmarshal(reqBody, &url)
+
+	myShortener := services.NewShortenerBase26()
+	mydb := services.NewMongoService()
+	// mydb := services.NewMockDataBase()
+	urlBiz := business.NewUrlBusiness(*myShortener, mydb)
+
+	shorUrl := urlBiz.GenerateShortURL(url)
+
+	result := "La url generada es: " + string(shorUrl)
+	respondWithJSON(w, http.StatusOK, result)
 }
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
