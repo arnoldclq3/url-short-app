@@ -36,5 +36,28 @@ func TestRestoreInexistentURL(t *testing.T) {
 
 	result := myBusiness.RestoreOriginalURL("AXVCVX")
 
-	assert.Equal(t, "", result, "fallo test TestRestoreInexistentURL")
+	assert.Equal(t, "", result, "fallo test RestoreOriginalURL")
+}
+
+func TestDeleteByUrl(t *testing.T) {
+	myShortener := services.NewShortenerBase26()
+	mydb := services.NewMockDataBase()
+	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
+
+	urlGen := myBusiness.GenerateShortURL("www.una-url-muy-larga.com")
+	_ = urlGen
+	err := myBusiness.DeleteByUrl("www.una-url-muy-larga.com")
+
+	assert.Nil(t, err, "fallo test DeleteByUrl")
+}
+
+func TestDeleteByShortUrl(t *testing.T) {
+	myShortener := services.NewShortenerBase26()
+	mydb := services.NewMockDataBase()
+	myBusiness := business.NewUrlBusiness(*myShortener, mydb)
+
+	urlGen := myBusiness.GenerateShortURL("www.una-url-muy-larga.com")
+	err := myBusiness.DeleteByShortUrl(urlGen)
+
+	assert.Nil(t, err, "fallo test DeleteByShortUrl")
 }

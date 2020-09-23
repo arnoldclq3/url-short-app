@@ -46,3 +46,15 @@ func (u UrlBusiness) RestoreOriginalURL(shortUrl string) string {
 	urlOriginal := urlRec.Text
 	return urlOriginal
 }
+
+func (u UrlBusiness) DeleteByUrl(url string) error {
+	urlRec, err := u.db.Find(entities.Url{Id: 0, Text: url})
+	err = u.db.Delete(urlRec.Id)
+	return err
+}
+
+func (u UrlBusiness) DeleteByShortUrl(url string) error {
+	idRec := u.shortener.RestoreSeedFromString(url)
+	err := u.db.Delete(idRec)
+	return err
+}
