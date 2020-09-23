@@ -15,7 +15,7 @@ func main() {
 	r.HandleFunc("/", handlers.Home).Methods("GET")
 	r.HandleFunc("/GenerateShortUrl", handlers.GenerateShortUrl).Methods("POST")
 	r.HandleFunc("/RestoreUrl", handlers.RestoreUrl).Methods("GET")
-	r.HandleFunc("/DeleteUrl", handlers.DeleteUrl).Methods("GET")
+	r.HandleFunc("/DeleteUrl", handlers.DeleteUrl).Methods("DELETE")
 
 	r.HandleFunc("/Get", handlers.GetbyId).Methods("GET")
 
