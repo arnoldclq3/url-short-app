@@ -19,9 +19,7 @@ func NewUrlBusiness(shortener services.IShortenerService, db services.IDataBaseS
 
 func (u UrlBusiness) GenerateShortURL(longUrl string) string {
 	last, err := u.db.FindLast()
-	if err != nil {
-		return ""
-	}
+	_ = err
 
 	idGen := last.Id + 1
 	url := entities.Url{Id: idGen, Text: longUrl}

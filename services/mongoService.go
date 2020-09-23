@@ -26,7 +26,7 @@ func NewMongoService() *MongoService {
 }
 
 func (m *MongoService) Add(url entities.Url) error {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
@@ -41,7 +41,7 @@ func (m *MongoService) Add(url entities.Url) error {
 }
 
 func (m *MongoService) FindById(id int) (entities.Url, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
@@ -57,7 +57,7 @@ func (m *MongoService) FindById(id int) (entities.Url, error) {
 }
 
 func (m *MongoService) Find(url entities.Url) (entities.Url, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
@@ -73,7 +73,7 @@ func (m *MongoService) Find(url entities.Url) (entities.Url, error) {
 }
 
 func (m *MongoService) Delete(id int) error {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
@@ -89,7 +89,7 @@ func (m *MongoService) Delete(id int) error {
 }
 
 func (m *MongoService) GetAll() ([]entities.Url, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
@@ -123,7 +123,7 @@ func (m *MongoService) Update(int, entities.Url) error {
 }
 
 func (m *MongoService) FindLast() (entities.Url, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
 		log.Fatal(err)
