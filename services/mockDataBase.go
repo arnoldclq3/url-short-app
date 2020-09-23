@@ -35,7 +35,6 @@ func (db *MockDataBase) Find(anyUrl entities.Url) (entities.Url, error) {
 }
 
 func (db *MockDataBase) Add(anyUrl entities.Url) error {
-	anyUrl.Id = len(db.urls)
 	db.urls = append(db.urls, anyUrl)
 	return nil
 }
@@ -56,4 +55,13 @@ func (db *MockDataBase) Delete(id int) error {
 
 func (db *MockDataBase) GetAll() ([]entities.Url, error) {
 	return db.urls, nil
+}
+
+func (db *MockDataBase) FindLast() (entities.Url, error) {
+	var url entities.Url
+	i := len(db.urls)
+	if i > 0 {
+		url = db.urls[len(db.urls)-1]
+	}
+	return url, nil
 }

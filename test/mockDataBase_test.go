@@ -22,11 +22,11 @@ func TestAdd(t *testing.T) {
 func TestFindById(t *testing.T) {
 	mydb := services.NewMockDataBase()
 
-	item := entities.Url{Id: -1, Text: "wwwwwwwwwwwwwwwwwwww"}
-	item2 := entities.Url{Id: -1, Text: "otraurlsuperlarga"}
+	item := entities.Url{Id: 1, Text: "wwwwwwwwwwwwwwwwwwww"}
+	item2 := entities.Url{Id: 2, Text: "otraurlsuperlarga"}
 	mydb.Add(item)
 	mydb.Add(item2)
-	url, err := mydb.FindById(1)
+	url, err := mydb.FindById(2)
 	_ = err
 
 	assert.Equal(t, "otraurlsuperlarga", url.Text, "fallo test FindById")
@@ -50,13 +50,13 @@ func TestFindByText(t *testing.T) {
 func TestDelete(t *testing.T) {
 	mydb := services.NewMockDataBase()
 
-	item := entities.Url{Id: -1, Text: "wwwwwwwwwwwwwwwwwwww"}
-	item2 := entities.Url{Id: -1, Text: "otraurlsuperlarga"}
-	item3 := entities.Url{Id: -1, Text: "4544444444444444443444"}
+	item := entities.Url{Id: 1, Text: "wwwwwwwwwwwwwwwwwwww"}
+	item2 := entities.Url{Id: 2, Text: "otraurlsuperlarga"}
+	item3 := entities.Url{Id: 3, Text: "4544444444444444443444"}
 	mydb.Add(item)
 	mydb.Add(item2)
 	mydb.Add(item3)
-	err := mydb.Delete(1)
+	err := mydb.Delete(2)
 	_ = err
 	urls, err := mydb.GetAll()
 	_ = err

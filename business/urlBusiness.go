@@ -18,21 +18,20 @@ func NewUrlBusiness(shortener services.IShortenerService, db services.IDataBaseS
 }
 
 func (u UrlBusiness) GenerateShortURL(longUrl string) string {
-	url := entities.Url{Id: -1, Text: longUrl}
-
-	err := u.db.Add(url)
+	last, err := u.db.FindLast()
 	if err != nil {
 		return ""
 	}
 
-	urlGen, err := u.db.Find(url)
+	idGen := last.Id + 1
+	url := entities.Url{Id: idGen, Text: longUrl}
+
+	err = u.db.Add(url)
 	if err != nil {
 		return ""
 	}
 
-	idGen := urlGen.Id
 	shortUrlGen := u.shortener.GenerateShortString(idGen)
-
 	return shortUrlGen
 }
 
@@ -45,6 +44,5 @@ func (u UrlBusiness) RestoreOriginalURL(shortUrl string) string {
 	}
 
 	urlOriginal := urlRec.Text
-
 	return urlOriginal
 }

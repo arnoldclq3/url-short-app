@@ -15,7 +15,7 @@ func TestGenerateShortURL(t *testing.T) {
 
 	result := myBusiness.GenerateShortURL("wwwwwwwwwwwwwwwwwwwwwwwwww")
 
-	assert.Equal(t, "A", result, "fallo test GenerateShortURL")
+	assert.Equal(t, "B", result, "fallo test GenerateShortURL")
 }
 
 func TestRestoreOriginalURL(t *testing.T) {

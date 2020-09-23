@@ -9,4 +9,5 @@ type IDataBaseService interface {
 	Update(int, entities.Url) error
 	Delete(int) error
 	GetAll() ([]entities.Url, error)
+	FindLast() (entities.Url, error)
 }
