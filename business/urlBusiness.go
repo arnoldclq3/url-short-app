@@ -19,9 +19,7 @@ func NewUrlBusiness(shortener services.IShortenerService, db services.IDataBaseS
 
 func (u UrlBusiness) GenerateShortURL(longUrl string) string {
 	last, err := u.db.FindLast()
-	if err != nil {
-		return ""
-	}
+	_ = err
 
 	idGen := last.Id + 1
 	url := entities.Url{Id: idGen, Text: longUrl}
@@ -45,4 +43,21 @@ func (u UrlBusiness) RestoreOriginalURL(shortUrl string) string {
 
 	urlOriginal := urlRec.Text
 	return urlOriginal
+}
+
+func (u UrlBusiness) DeleteByUrl(url string) error {
+	urlRec, err := u.db.Find(entities.Url{Id: 0, Text: url})
+	err = u.db.Delete(urlRec.Id)
+	return err
+}
+
+func (u UrlBusiness) DeleteByShortUrl(url string) error {
+	idRec := u.shortener.RestoreSeedFromString(url)
+	err := u.db.Delete(idRec)
+	return err
+}
+
+func (u UrlBusiness) GetbyId(id int) (entities.Url, error) {
+	urlRec, err := u.db.FindById(id)
+	return urlRec, err
 }
