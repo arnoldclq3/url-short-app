@@ -1,6 +1,6 @@
 package entities
 
 type Url struct {
-	Id   int
-	Text string
+	Id   int    `bson:"id"`
+	Text string `bson:"text"`
 }

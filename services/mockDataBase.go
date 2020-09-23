@@ -57,3 +57,8 @@ func (db *MockDataBase) Delete(id int) error {
 func (db *MockDataBase) GetAll() ([]entities.Url, error) {
 	return db.urls, nil
 }
+
+func (db *MockDataBase) FindLast() (entities.Url, error) {
+	var url entities.Url
+	return url, nil
+}
