@@ -56,3 +56,8 @@ func (u UrlBusiness) DeleteByShortUrl(url string) error {
 	err := u.db.Delete(idRec)
 	return err
 }
+
+func (u UrlBusiness) GetbyId(id int) (entities.Url, error) {
+	urlRec, err := u.db.FindById(id)
+	return urlRec, err
+}
